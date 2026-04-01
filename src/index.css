@@ -132,3 +132,7 @@ img, .card, .cylinder {
 .animate-popup {
   animation: popup 0.35s ease forwards;
 }
+
+html, body {
+  overflow-x: hidden;
+}
