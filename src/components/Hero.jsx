@@ -9,22 +9,28 @@ export default function Hero() {
   const headingRef = useRef(null);
   const subRef = useRef(null);
   const btnRef = useRef(null);
+  const bgRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Entry animation
-      gsap.from([headingRef.current, subRef.current, btnRef.current], {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: "power3.out",
-        delay: 0.5,
-      });
 
-      // ✅ SAFE PARALLAX (NO WHITE LINE)
-      gsap.to(".hero-bg", {
-        yPercent: 15,
+      // ✅ ENTRY ANIMATION (stable)
+      gsap.fromTo(
+        [subRef.current, headingRef.current, btnRef.current],
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.2,
+          ease: "power3.out",
+          delay: 0.3,
+        }
+      );
+
+      // 🔥 FINAL PARALLAX FIX (NO FLICKER)
+      gsap.to(bgRef.current, {
+        y: 80, // ✅ pixel-based (no subpixel bug)
         ease: "none",
         scrollTrigger: {
           trigger: containerRef.current,
@@ -33,26 +39,30 @@ export default function Hero() {
           scrub: true,
         },
       });
+
     }, containerRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
   }, []);
 
-  // ✅ FIXED SCROLL BUTTON
+  // ✅ PERFECT SCROLL FIX
   const scrollToContact = () => {
     const el = document.querySelector("#contact");
 
     if (el) {
-      const navbarHeight =
-        document.querySelector("nav")?.offsetHeight || 80;
+      const navbar = document.querySelector("nav");
+      const navbarHeight = navbar ? navbar.clientHeight : 80;
 
-      const elementPosition =
-        el.getBoundingClientRect().top + window.pageYOffset;
-
-      const offsetPosition = elementPosition - navbarHeight;
+      const y =
+        el.getBoundingClientRect().top +
+        window.pageYOffset -
+        navbarHeight;
 
       window.scrollTo({
-        top: offsetPosition,
+        top: y,
         behavior: "smooth",
       });
     }
@@ -62,20 +72,26 @@ export default function Hero() {
     <section
       ref={containerRef}
       id="home"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden pt-[80px]"
     >
-      {/* 🔥 BACKGROUND FIXED */}
+      {/* BACKGROUND */}
       <div className="absolute inset-0 z-0 overflow-hidden">
+
         <div
-          className="hero-bg absolute inset-[-15%] w-[130%] h-[130%] bg-cover bg-center"
+          ref={bgRef}
+          className="absolute top-[-20%] left-[-20%] w-[140%] h-[140%] bg-cover bg-center"
           style={{
             backgroundImage:
               "url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2098&auto=format&fit=crop')",
+            transform: "translate3d(0,0,0)", // 🔥 GPU FIX
           }}
         ></div>
 
         {/* overlay */}
         <div className="absolute inset-0 bg-black/60"></div>
+
+        {/* SAFETY LAYER */}
+        <div className="absolute top-0 left-0 w-full h-[2px] bg-[#0a0a0a]"></div>
       </div>
 
       {/* CONTENT */}
@@ -107,12 +123,9 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* 🔥 CLEAN SCROLL INDICATOR */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center pointer-events-none opacity-80">
-        <span className="text-[10px] tracking-widest text-white/60 mb-2">
-          SCROLL
-        </span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-yellow-400/80 to-transparent animate-pulse"></div>
+      {/* INDICATOR */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 pointer-events-none opacity-70">
+        <div className="w-[2px] h-10 bg-gradient-to-b from-[#d4af7a] to-transparent rounded-full animate-pulse"></div>
       </div>
     </section>
   );
