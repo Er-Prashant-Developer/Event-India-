@@ -1,48 +1,54 @@
 import { useState, useEffect, useRef } from "react";
 
+//sufi nights
+import one from "../assets/Sufi nights/one.jpg";
+import two from "../assets/Sufi nights/two.jpg";
+import three from "../assets/Sufi nights/three.jpg";
+import four from "../assets/Sufi nights/four.jpg";
+import five from "../assets/Sufi nights/five.jpg";
+
+// sangeet
+import s1 from "../assets/Sangeet/one.jpg";
+import s2 from "../assets/Sangeet/two.jpg";
+import s3 from "../assets/Sangeet/three.jpg";
+import s4 from "../assets/Sangeet/four.jpg";
+import s5 from "../assets/Sangeet/five.jpg";
+
+//Weddings
+import w1 from "../assets/Weddings/one.jpg";
+import w2 from "../assets/Weddings/two.jpg";
+import w3 from "../assets/Weddings/three.jpg";
+import w4 from "../assets/Weddings/four.jpg";
+import w5 from "../assets/Weddings/five.jpg";
+
+// Engagement
+import e1 from "../assets/Engagement/one.jpg";
+import e2 from "../assets/Engagement/two.jpg";
+import e3 from "../assets/Engagement/three.jpg";
+import e4 from "../assets/Engagement/four.jpg";
+import e5 from "../assets/Engagement/five.jpg";
+
+// Mehendi (⚠️ folder bana lena agar nahi hai)
+import m1 from "../assets/Mehendi/one.jpg";
+import m2 from "../assets/Mehendi/two.jpg";
+import m3 from "../assets/Mehendi/three.jpg";
+import m4 from "../assets/Mehendi/four.jpg";
+import m5 from "../assets/Mehendi/five.jpg";
+
+// Cocktail (⚠️ folder bana lena agar nahi hai)
+import c1 from "../assets/Cocktail/one.jpg";
+import c2 from "../assets/Cocktail/two.jpg";
+import c3 from "../assets/Cocktail/three.jpg";
+import c4 from "../assets/Cocktail/four.jpg";
+import c5 from "../assets/Cocktail/five.jpg";
+
 const data = {
-  "Sufi Night": [
-    "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=900&q=80",
-    "https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?w=900&q=80",
-    "https://images.unsplash.com/photo-1497032205916-ac775f0649ae?w=900&q=80",
-    "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=900&q=80",
-    "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=900&q=80",
-  ],
-  "Sangeet": [
-    "https://images.unsplash.com/photo-1520857014576-2c4f4c972b57?w=900&q=80",
-    "https://images.unsplash.com/photo-1519741497674-611481863552?w=900&q=80",
-    "https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=900&q=80",
-    "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=900&q=80",
-    "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=80",
-  ],
-  "Wedding": [
-    "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=900&q=80",
-    "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=900&q=80",
-    "https://images.unsplash.com/photo-1507504031003-b417219a0fde?w=900&q=80",
-    "https://images.unsplash.com/photo-1530023367847-a683933f4172?w=900&q=80",
-    "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=900&q=80",
-  ],
-  "Engagement": [
-    "https://images.unsplash.com/photo-1529636798458-92182e662485?w=900&q=80",
-    "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?w=900&q=80",
-    "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=900&q=80",
-    "https://images.unsplash.com/photo-1505236738411-0f1f0c5f6c53?w=900&q=80",
-    "https://images.unsplash.com/photo-1520857014576-2c4f4c972b57?w=900&q=80",
-  ],
-  "Mehendi": [
-    "https://images.unsplash.com/photo-1594736797933-d0d9c8c3f6b7?w=900&q=80",
-    "https://images.unsplash.com/photo-1603570419889-8f1a0d8e1c2f?w=900&q=80",
-    "https://images.unsplash.com/photo-1598524374912-6b0b1c6d1a3f?w=900&q=80",
-    "https://images.unsplash.com/photo-1611078489935-0cb964de46d6?w=900&q=80",
-    "https://images.unsplash.com/photo-1583394293214-28ded15ee548?w=900&q=80",
-  ],
-  "Cocktail": [
-    "https://images.unsplash.com/photo-1514361892635-cebb0c49a1b2?w=900&q=80",
-    "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900&q=80",
-    "https://images.unsplash.com/photo-1551024709-8f23befc6c7c?w=900&q=80",
-    "https://images.unsplash.com/photo-1532635241-17e820acc59f?w=900&q=80",
-    "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=900&q=80",
-  ],
+  "Sufi Night": [one, two, three, four, five],
+  Sangeet: [s1, s2, s3, s4, s5],
+  Wedding: [w1, w2, w3, w4, w5],
+  Engagement: [e1, e2, e3, e4, e5],
+  Mehendi: [m1, m2, m3, m4, m5],
+  Cocktail: [c1, c2, c3, c4, c5],
 };
 
 export default function Premium3DSlider() {
@@ -84,9 +90,7 @@ export default function Premium3DSlider() {
       const container = navRef.current;
 
       const offset =
-        el.offsetLeft -
-        container.offsetWidth / 2 +
-        el.offsetWidth / 2;
+        el.offsetLeft - container.offsetWidth / 2 + el.offsetWidth / 2;
 
       container.scrollTo({
         left: offset,
@@ -97,13 +101,15 @@ export default function Premium3DSlider() {
 
   return (
     <section className="bg-black text-white py-20 px-4 md:px-12">
-
       <h2 className="text-center text-4xl md:text-5xl text-yellow-400 mb-12">
         Precious Moments
       </h2>
 
       {/* NAV */}
-      <div ref={navRef} className="flex overflow-x-auto no-scrollbar mb-10 px-2">
+      <div
+        ref={navRef}
+        className="flex overflow-x-auto no-scrollbar mb-10 px-2"
+      >
         <div className="flex space-x-6 mx-auto min-w-max">
           {categories.map((item, i) => (
             <button
@@ -125,7 +131,6 @@ export default function Premium3DSlider() {
 
       {/* 🔥 3D STACK */}
       <div className="relative h-[350px] md:h-[500px] flex items-center justify-center perspective">
-
         {categories.map((cat, i) => {
           let offset = i - activeIndex;
 
@@ -148,11 +153,7 @@ export default function Premium3DSlider() {
               }}
             >
               <img
-                src={
-                  i === activeIndex
-                    ? data[cat][imgIndex]
-                    : data[cat][0]
-                }
+                src={i === activeIndex ? data[cat][imgIndex] : data[cat][0]}
                 className="w-full h-full object-cover rounded-3xl shadow-2xl transition-all duration-700"
               />
 

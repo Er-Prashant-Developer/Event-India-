@@ -1,15 +1,15 @@
 import { useRef, useState, useEffect } from "react";
 
-const images = [
-  "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400",
-  "https://images.unsplash.com/photo-1520857014576-2c4f4c972b57?w=400",
-  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400",
-  "https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?w=400",
-  "https://images.unsplash.com/photo-1519741497674-611481863552?w=400",
-  "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400",
-  "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400",
-  "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400",
-];
+import t1 from "../assets/Timeless/one.jpg";
+import t2 from "../assets/Timeless/two.jpg";
+import t3 from "../assets/Timeless/three.jpg";
+import t4 from "../assets/Timeless/four.jpg";
+import t5 from "../assets/Timeless/five.jpg";
+import t6 from "../assets/Timeless/six.jpg";
+import t7 from "../assets/Timeless/seven.jpg";
+import t8 from "../assets/Timeless/eight.jpg";
+
+const images = [t1, t2, t3, t4, t5, t6, t7, t8];
 
 export default function LuxuryCylinderHero() {
   const cylinderRef = useRef(null);
@@ -20,15 +20,16 @@ export default function LuxuryCylinderHero() {
   const radius = 360;
   const angleStep = 360 / images.length;
 
-  // ✅ FIXED animation loop (only once)
+  // ✅ FIXED smooth animation (click + mouse both work properly)
   useEffect(() => {
-    let current = 0;
+    let current = baseRotation;
     let rafId;
 
     const animate = () => {
       const target = baseRotation + mouseRotation.current;
 
-      current += (target - current) * 0.08;
+      // 🔥 smoother + responsive
+      current += (target - current) * 0.12;
 
       if (cylinderRef.current) {
         cylinderRef.current.style.transform = `rotateY(${current}deg)`;
@@ -42,6 +43,7 @@ export default function LuxuryCylinderHero() {
     return () => cancelAnimationFrame(rafId);
   }, [baseRotation]);
 
+  // ✅ mouse move
   const handleMouseMove = (e) => {
     const percent = (e.clientX / window.innerWidth - 0.5) * 2;
     mouseRotation.current = percent * 120;
@@ -87,14 +89,14 @@ export default function LuxuryCylinderHero() {
 
         {/* ARROWS */}
         <button
-          onClick={() => setBaseRotation((r) => r - 30)}
+          onClick={() => setBaseRotation((r) => r - angleStep)}
           className="absolute left-2 bg-[#8B6B4A]/90 text-white px-3 py-2 rounded-full shadow hover:scale-110 transition"
         >
           ◀
         </button>
 
         <button
-          onClick={() => setBaseRotation((r) => r + 30)}
+          onClick={() => setBaseRotation((r) => r + angleStep)}
           className="absolute right-2 bg-[#8B6B4A]/90 text-white px-3 py-2 rounded-full shadow hover:scale-110 transition"
         >
           ▶
@@ -115,10 +117,8 @@ export default function LuxuryCylinderHero() {
           position: relative;
           transform-style: preserve-3d;
           will-change: transform;
-          transform: translateZ(0);
         }
 
-        /* ❗ FIXED: double dot removed */
         .card {
           position: absolute;
           width: 240px;
@@ -129,27 +129,20 @@ export default function LuxuryCylinderHero() {
           overflow: hidden;
 
           backface-visibility: hidden;
-          -webkit-backface-visibility: hidden;
-
           transform-style: preserve-3d;
-          transform: translateZ(0);
-          will-change: transform;
 
           box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+          transition: transform 0.3s ease;
         }
 
-        /* ❗ FIXED hover */
         .card:hover {
-          scale: 1.08;
+          transform: scale(1.08);
         }
 
         .card img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-
-          backface-visibility: hidden;
-          transform: translateZ(0);
         }
       `}</style>
     </section>
