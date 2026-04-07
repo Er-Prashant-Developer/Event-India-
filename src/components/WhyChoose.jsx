@@ -1,30 +1,36 @@
 import { useState, useRef } from "react";
-import { Volume2, VolumeX } from "lucide-react";
+import { Volume2, VolumeX, Crown, Settings, Globe, Briefcase } from "lucide-react";
+
+// ✅ LOCAL IMAGES IMPORT
+import w1 from "../assets/Weddings/one.jpg";
+import s1 from "../assets/Sangeet/one.jpg";
+import sufi1 from "../assets/Sufi nights/one.jpg";
+import e1 from "../assets/Engagement/one.jpg";
 
 const data = [
   {
-    id: "01",
+    icon: <Crown className="text-yellow-400" />, // 👑 Luxury
     title: "Luxury Expertise",
     desc: "V3 Events specializes in designing luxurious weddings with premium venues, elegant décor, and seamless execution. Our experienced team ensures every detail reflects sophistication, creating memorable celebrations that truly stand out.",
-    img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=900&q=80",
+    img: w1,
   },
   {
-    id: "02",
+    icon: <Settings className="text-yellow-400" />, // ⚙️ Planning
     title: "Personalized Planning",
     desc: "Every wedding is unique. V3 Events creates customized themes, décor styles, and experiences tailored to the couple’s story, culture, and vision, ensuring a celebration that feels truly personal and meaningful.",
-    img: "https://images.unsplash.com/photo-1520857014576-2c4f4c972b57?w=900&q=80",
+    img: s1,
   },
   {
-    id: "03",
+    icon: <Globe className="text-yellow-400" />, // 🌍 Destination
     title: "Global Destinations",
     desc: "From India to international locations like Dubai, Thailand, and Bali, V3 Events plans stunning destination weddings with trusted vendor networks, smooth coordination, and exceptional hospitality for unforgettable celebrations.",
-    img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=80",
+    img: sufi1,
   },
   {
-    id: "04",
+    icon: <Briefcase className="text-yellow-400" />, // 🧳 Management
     title: "Complete Management",
     desc: "We manage everything from planning to execution — logistics, décor, entertainment, guest hospitality, and coordination. Our end-to-end approach ensures couples enjoy a stress-free wedding experience.",
-    img: "https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?w=900&q=80",
+    img: e1,
   },
 ];
 
@@ -42,7 +48,7 @@ export default function WhyChoosePremium() {
   return (
     <section className="relative bg-black text-white py-20 px-6 md:px-16">
 
-      {/* ✅ BACKGROUND VIDEO (WORKING) */}
+      {/* VIDEO */}
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover opacity-40"
@@ -57,10 +63,9 @@ export default function WhyChoosePremium() {
         />
       </video>
 
-      {/* overlay */}
       <div className="absolute inset-0 bg-black/70"></div>
 
-      {/* 🔊 SOUND BUTTON */}
+      {/* SOUND */}
       <button
         onClick={toggleSound}
         className="absolute top-6 right-6 z-20 bg-white/10 p-3 rounded-full"
@@ -68,11 +73,10 @@ export default function WhyChoosePremium() {
         {muted ? <VolumeX /> : <Volume2 />}
       </button>
 
-      {/* CONTENT */}
       <div className="relative z-10 max-w-6xl mx-auto">
 
         <h2 className="text-4xl md:text-5xl text-center mb-16">
-          Why Choose <span className="text-yellow-400">V3 Events</span>
+          Why Choose <span className="text-yellow-400">Event India</span>
         </h2>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -83,16 +87,18 @@ export default function WhyChoosePremium() {
               <div
                 key={i}
                 onMouseEnter={() => setActive(i)}
-                className={`p-5 rounded-xl cursor-pointer transition ${
+                className={`p-5 rounded-xl cursor-pointer transition flex items-center gap-4 ${
                   active === i
                     ? "bg-white/20 border border-yellow-400"
                     : "bg-white/10 hover:bg-white/20"
                 }`}
               >
+                {/* ✅ ICON (replaced number) */}
+                <div className="text-xl">
+                  {item.icon}
+                </div>
+
                 <h3 className="text-xl font-semibold">
-                  <span className="text-yellow-400 mr-2">
-                    {item.id}
-                  </span>
                   {item.title}
                 </h3>
               </div>
